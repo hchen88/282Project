@@ -7,12 +7,11 @@ using namespace std;
 
 class Player{
 	public:
-		Player(Card card1, Card card2);
-		void hit();
+		Player();
+		void hit(Card* card);
 		void stand();
-		void split();
+		void split(Card* card1, Card* card2);
 		void removeHand();
-		void calculateValue();
 		int getTotalValue() const;
 	private:
 		vector<Card*> hand;

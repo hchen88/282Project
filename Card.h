@@ -6,7 +6,7 @@ using namespace std;
 
 class Card{
 	public:
-		Card();
+		Card(string cardName, int value);
 		string getName() const;
 		int getValue() const;
 	private:
