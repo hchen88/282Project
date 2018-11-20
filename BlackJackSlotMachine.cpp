@@ -1,3 +1,6 @@
+#include "Card.h"
+#include "Player.h"
+#include "Account.h"
 #include <iostream>
 #include <string>
 
