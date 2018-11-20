@@ -14,9 +14,15 @@ double Account::getMoney() const {
 }
 
 void Account::bet(double moneyBet){
-	money -= moneyBet;
-	cout<<"You bet $"<<moneyBet<<endl;
-	cout<<"You have $"<<this.getMoney()<<" left"<<endl;
+	if(moneyBet > money){
+		cout<<"You dont have enough money to bet that amount"<<endl;
+		cout<<"You bet your remaning balance of $"<<money<<endl;
+		money = 0.00;
+	}else{
+		money -= moneyBet;
+		cout<<"You bet $"<<moneyBet<<endl;
+		cout<<"You have $"<<this.getMoney()<<" left"<<endl;
+	}
 }
 
 void Account::win(double moneyWon){
