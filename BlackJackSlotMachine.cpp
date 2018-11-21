@@ -30,6 +30,7 @@ int main(int argc, char** argv) {
 	do{
 		Player dealer();
 		Player user();
+		string option; //chooses what the user wants to do (hit, stand, split)
 		
 		play = false; //when the user doesn't want to play again
 	}

@@ -15,11 +15,11 @@ void Player::hitAgain(Card* card){
 	splitTotalValue += card->getValue();
 }
 
-void Player::stand(){
+void Player::stand(){ //might not needed
 	
 }
 
-void Player::split(){
+void Player::split(){ //might not needed
 	
 }
 

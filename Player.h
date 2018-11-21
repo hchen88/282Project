@@ -11,8 +11,8 @@ class Player{
 		Player();
 		void hit(Card* card);
 		void hitAgain(Card* card);
-		void stand();
-		void split();
+		void stand(); //dont think we need this method
+		void split(); //dont think we need this method
 		void removeHand();
 		void removeSplitHand();
 		int getTotalValue() const;
