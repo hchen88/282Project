@@ -1,11 +1,11 @@
 #include "Account.h"
 
-Account::Account(int accountNumber){
+Account::Account(string accountNumber){
 	this->accountNumber = accountNumber;
 	money = 50.00;
 }
 
-int Account::getAccountNum() const {
+string Account::getAccountNum() const {
 	return accountNumber;
 }
 
@@ -21,12 +21,12 @@ void Account::bet(double moneyBet){
 	}else{
 		money -= moneyBet;
 		cout<<"You bet $"<<moneyBet<<endl;
-		cout<<"You have $"<<this.getMoney()<<" left"<<endl;
+		cout<<"You have $"<<money<<" left"<<endl;
 	}
 }
 
 void Account::win(double moneyWon){
 	money += moneyWon;
 	cout<<"You won $"<<moneyWon<<endl;
-	cout<<"Your total earnings is $"<<this.getMoney()<<endl;
+	cout<<"Your total balance is $"<<money<<endl;
 }
