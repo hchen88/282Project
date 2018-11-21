@@ -24,10 +24,12 @@ int main(int argc, char** argv) {
 	cin>>money;
 	account1.bet(money);
 	pot = money;
-	Player dealer();
 	bool play = true;
 	bool split = false;
 	do{
+		Player dealer();
+		Player user();
+		
 		play = false;
 	}
 	while(play);
