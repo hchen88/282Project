@@ -17,12 +17,12 @@ int main(int argc, char** argv) {
 	cout<<"Enter your account number: ";
 	string accountNumber;
 	cin>>accountNumber;
-	Account account1(accountNumber);
-	cout<<"Your current balance is $"<<account1.getMoney()<<endl;
+	Account account(accountNumber);
+	cout<<"Your current balance is $"<<account.getMoney()<<endl;
 	cout<<"Enter the amount of money you would like to bet: ";
 	double money;
 	cin>>money;
-	account1.bet(money);
+	account.bet(money);
 	pot = money;
 	bool play = true;
 	bool split = false;
