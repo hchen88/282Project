@@ -12,9 +12,11 @@ using namespace std;
 int main(int argc, char** argv) {
 	
 	string menu = "Choose number option:\n1. Hit\n2. Stand\n3. Split";
-	string hit = "1";
-	string stand = "2";
-	string split = "3";
+	string one = "1";
+	string two = "2";
+	string three = "3";
+	string hitOptions = "Choose number option:\n1. Hit first hand only\n2. Hit second hand only\n3. Hit both hands";
+	string hitChoice;
 	
 	//create the deck of cards
 	string faces[] = {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
@@ -30,7 +32,8 @@ int main(int argc, char** argv) {
 	double pot;
 	double totalBet = 0; //overall amount bet
 	double amountWon = 0; //overall earnings
-	bool play = true;
+	string play = "Yes";
+	string choice;
 	bool isSplit = false;
 	cout<<fixed<<setprecision(2);
 	
@@ -62,42 +65,101 @@ int main(int argc, char** argv) {
 		
 		cout<<menu<<endl;
 		cin>>option;
-		while(option != stand){
-			if(option == hit){
+		while(option != two){
+			if(option == one){
 				if(isSplit == false){ //doesn't have a second hand
 					user.hit(deck[4]); //example dealing
 				}
 				else{ //does have a second hand
-					//automatically hit both or choose which hand to hit?
+					cout<<hitOptions<<endl;
+					cin>>hitChoice;
+					if(hitChoice == one){ //hit first hand
+						user.hit(deck[10]);
+						cout<<"You hit: "<<deck[10].getName()<<endl;
+					}
+					else if(hitChoice == two){ //hit second hand
+						user.hitSplit(deck[11]);
+						cout<<"You hit: "<<deck[11].getName()<<endl;
+					}
+					else if(hitChoice == three){ //hit both hands
+						user.hit(deck[12]);
+						cout<<"You hit for first hand: "<<deck[12].getName()<<endl;
+						user.hitSplit(deck[13]);
+						cout<<"You hit for second hand: "<<deck[13].getName()<<endl;
+					}
 				}
 			}
-			else if(option == split){
+			else if(option == three){
 				isSplit = true;
+				pot *= 2;
 				user.hitSplit(deck[5]); //example dealing
+				user.hitSplit(deck[6]); //according to the instructions, when you split you get two cards to that hand
 			}
-			else if(option == stand){ //done with selecting cards for both the first hand and the second hand
-				if(dealer.getTotalValue() < 17){
-					dealer.hit(deck[6]);
-				}
-			}
+			//if option is stand then the user is done getting cards
 		}
 		
 		//end of the round, displaying the total values of the hands, determing the winner
-		cout<<"Total value for the dealer's hand: "<<dealer.getTotalValue()<<endl;
-		if(dealer.getTotalValue() > 21){
-			
-		}
-		else if(isSplit){
+		if(isSplit){
 			cout<<"Total value for your first hand: "<<user.getTotalValue()<<endl;
 			cout<<"Total value for your second hand: "<<user.getSplitTotalValue()<<endl;
+			if(user.getTotalValue() > 21 && user.getSplitTotalValue() > 21){
+				cout<<"Both your hands have exceeded 21; you lost this round"<<endl;
+				pot = 0;
+			}
+			else{
+				cout<<"Total value for the dealer's hand: "<<dealer.getTotalValue()<<endl;
+				while(dealer.getTotalValue() < 17){
+					dealer.hit(deck[7]); //continues to draw until his hand is 17 or above
+					cout<<"Dealer hits: "<<deck[7].getName()<<endl;
+				}
+				if(dealer.getTotalValue() > 21){
+					cout<<"Dealer has exceeded 21; you won this round"<<endl;
+					account.win(pot);
+					pot = 0;
+				}
+				else if((dealer.getTotalValue() < user.getTotalValue() && user.getTotalValue() < 22) || (dealer.getTotalValue() < user.getSplitTotalValue() && user.getSplitTotalValue() < 22)){
+					cout<<"You beat the dealer's hand; you won this round"<<endl;
+					account.win(pot);
+					pot = 0;
+				}
+				else{
+					cout<<"The dealer's hand beat both your hands; you lost this round"<<endl;
+					pot = 0;
+				}
+			}
 		}
 		else{
 			cout<<"Total value for your hand: "<<user.getTotalValue()<<endl;
+			if(user.getTotalValue() > 21){
+				cout<<"You have exceeded 21; you lost this round"<<endl;
+				pot = 0;
+			}
+			else{
+				cout<<"Total value for the dealer's hand: "<<dealer.getTotalValue()<<endl;
+				while(dealer.getTotalValue() < 17){
+					dealer.hit(deck[7]); //continues to draw until his hand is 17 or above
+					cout<<"Dealer hits: "<<deck[7].getName()<<endl;
+				}
+				if(dealer.getTotalValue() > 21){
+					cout<<"Dealer has exceeded 21; you won this round"<<endl;
+					account.win(pot);
+					pot = 0;
+				}
+				else if(dealer.getTotalValue() < user.getTotalValue()){
+					cout<<"You beat the dealer's hand; you won this round"<<endl;
+					account.win(pot);
+					pot = 0;
+				}
+				else{
+					cout<<"The dealer's hand beat both you hand; you lost this round"<<endl;
+					pot = 0;
+				}
+			}
 		}
-		
-		play = false; //when the user doesn't want to play again
+		cout<<"Would you like to play again? (Yes/No): ";
+		cin>>choice;
 	}
-	while(play);
+	while(choice == play);
 	cout<<"Total amount of betting money: $"<<totalBet<<endl;
 	cout<<"Total amount won: $"<<amountWon<<endl;
 	
