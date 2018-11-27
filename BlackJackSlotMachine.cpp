@@ -52,14 +52,47 @@ int main(int argc, char** argv) {
 		Player user;
 		string option; //chooses what the user wants to do (hit, stand, split)
 		
+		//initial dealing 
+		user.hit(deck[0]); //example dealing, not final
+		user.hit(deck[1]);
+		user.seeHand();
+		dealer.hit(deck[2]);
+		dealer.hit(deck[3]);
+		dealer.seeDealerHand();
+		
 		cout<<menu<<endl;
 		cin>>option;
-		if(option == hit){
+		while(option != stand){
+			if(option == hit){
+				if(isSplit == false){ //doesn't have a second hand
+					user.hit(deck[4]); //example dealing
+				}
+				else{ //does have a second hand
+					//automatically hit both or choose which hand to hit?
+				}
+			}
+			else if(option == split){
+				isSplit = true;
+				user.hitSplit(deck[5]); //example dealing
+			}
+			else if(option == stand){ //done with selecting cards for both the first hand and the second hand
+				if(dealer.getTotalValue() < 17){
+					dealer.hit(deck[6]);
+				}
+			}
+		}
+		
+		//end of the round, displaying the total values of the hands, determing the winner
+		cout<<"Total value for the dealer's hand: "<<dealer.getTotalValue()<<endl;
+		if(dealer.getTotalValue() > 21){
 			
-		}else if(option == stand){
-			
-		}else if(option == split){
-			isSplit = true;
+		}
+		else if(isSplit){
+			cout<<"Total value for your first hand: "<<user.getTotalValue()<<endl;
+			cout<<"Total value for your second hand: "<<user.getSplitTotalValue()<<endl;
+		}
+		else{
+			cout<<"Total value for your hand: "<<user.getTotalValue()<<endl;
 		}
 		
 		play = false; //when the user doesn't want to play again

@@ -12,17 +12,9 @@ void Player::hit(Card card){
 	totalValue += card.getValue();
 }
 
-void Player::hitAgain(Card card){
+void Player::hitSplit(Card card){
 	splitHand.push_back(card);
 	splitTotalValue += card.getValue();
-}
-
-void Player::stand(){ //might not needed
-	
-}
-
-void Player::split(){ //might not needed
-	
 }
 
 void Player::removeHand(){
@@ -48,6 +40,7 @@ void Player::seeHand(){
 	for(int i = 0; i < hand.size(); i++){
 		cout<<hand[i].getName()<<endl;
 	}
+	cout<<"Total value: "<<totalValue<<endl;
 }
 
 void Player::seeSplitHand(){
@@ -55,4 +48,9 @@ void Player::seeSplitHand(){
 	for(int i = 0; i < splitHand.size(); i++){
 		cout<<splitHand[i].getName()<<endl;
 	}
+	cout<<"Total value: "<<splitTotalValue<<endl;
+}
+
+void Player::seeDealerHand(){
+	cout<<"One of the dealer's card: "<<hand[0].getName()<<endl;
 }
