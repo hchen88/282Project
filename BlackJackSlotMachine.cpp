@@ -79,24 +79,34 @@ int main(int argc, char** argv) {
 					if(hitChoice == one){ //hit first hand
 						user.hit(deck[10]);
 						cout<<"You hit: "<<deck[10].getName()<<endl;
+						cout<<"Total value: "<<user.getTotalValue()<<endl;
 					}
 					else if(hitChoice == two){ //hit second hand
 						user.hitSplit(deck[11]);
 						cout<<"You hit: "<<deck[11].getName()<<endl;
+						cout<<"Total value: "<<user.getSplitTotalValue()<<endl;
 					}
 					else if(hitChoice == three){ //hit both hands
 						user.hit(deck[12]);
 						cout<<"You hit for first hand: "<<deck[12].getName()<<endl;
+						cout<<"Total value for first hand: "<<user.getTotalValue()<<endl;
 						user.hitSplit(deck[13]);
 						cout<<"You hit for second hand: "<<deck[13].getName()<<endl;
+						cout<<"Total value for second hand: "<<user.getSplitTotalValue()<<endl;
 					}
 				}
 			}
 			else if(option == three){
 				isSplit = true;
+				account.bet(pot);
+				totalBet += pot;
 				pot *= 2;
+				cout<<"The pot is now at $"<<pot<<endl;
 				user.hitSplit(deck[5]); //example dealing
+				cout<<"You hit: "<<deck[5].getName()<<endl;
 				user.hitSplit(deck[6]); //according to the instructions, when you split you get two cards to that hand
+				cout<<"You hit: "<<deck[6].getName()<<endl;
+				cout<<"Total value for your new hand: "<<user.getSplitTotalValue()<<endl;
 			}
 			cout<<menu<<endl;
 			cin>>option;
@@ -119,6 +129,7 @@ int main(int argc, char** argv) {
 				}
 				if(dealer.getTotalValue() > 21){
 					cout<<"Dealer has exceeded 21; you won this round"<<endl;
+					pot *= 2;
 					account.win(pot);
 					amountWon += pot;
 					pot = 0;
@@ -133,6 +144,7 @@ int main(int argc, char** argv) {
 					}
 					else{
 						cout<<"You beat the dealer's hand; you won this round"<<endl;
+						pot *= 2;
 						account.win(pot);
 						amountWon += pot;
 						pot = 0;
@@ -158,6 +170,7 @@ int main(int argc, char** argv) {
 				}
 				if(dealer.getTotalValue() > 21){
 					cout<<"Dealer has exceeded 21; you won this round"<<endl;
+					pot *= 2;
 					account.win(pot);
 					amountWon += pot;
 					pot = 0;
@@ -171,12 +184,12 @@ int main(int argc, char** argv) {
 				}
 				else if(dealer.getTotalValue() < user.getTotalValue()){
 					cout<<"You beat the dealer's hand; you won this round"<<endl;
+					pot *= 2;
 					account.win(pot);
 					amountWon += pot;
 					pot = 0;
 				}
 				else{
-					
 					cout<<"The dealer had a "<<dealer.getTotalValue()<<"; you lost this round"<<endl;
 					pot = 0;
 				}
