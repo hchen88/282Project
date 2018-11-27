@@ -70,6 +70,8 @@ int main(int argc, char** argv) {
 			if(option == one){
 				if(isSplit == false){ //doesn't have a second hand
 					user.hit(deck[4]); //example dealing
+					cout<<"You hit: "<<deck[4].getName()<<endl;
+					cout<<"Total value: "<<user.getTotalValue()<<endl;
 				}
 				else{ //does have a second hand
 					cout<<hitOptions<<endl;
@@ -96,6 +98,8 @@ int main(int argc, char** argv) {
 				user.hitSplit(deck[5]); //example dealing
 				user.hitSplit(deck[6]); //according to the instructions, when you split you get two cards to that hand
 			}
+			cout<<menu<<endl;
+			cin>>option;
 			//if option is stand then the user is done getting cards
 		}
 		
@@ -116,12 +120,23 @@ int main(int argc, char** argv) {
 				if(dealer.getTotalValue() > 21){
 					cout<<"Dealer has exceeded 21; you won this round"<<endl;
 					account.win(pot);
+					amountWon += pot;
 					pot = 0;
 				}
-				else if((dealer.getTotalValue() < user.getTotalValue() && user.getTotalValue() < 22) || (dealer.getTotalValue() < user.getSplitTotalValue() && user.getSplitTotalValue() < 22)){
-					cout<<"You beat the dealer's hand; you won this round"<<endl;
-					account.win(pot);
-					pot = 0;
+				else if((dealer.getTotalValue() <= user.getTotalValue() && user.getTotalValue() < 22) || (dealer.getTotalValue() <= user.getSplitTotalValue() && user.getSplitTotalValue() < 22)){
+					if(dealer.getTotalValue() == user.getTotalValue() || dealer.getTotalValue() == user.getSplitTotalValue()){
+						cout<<"You tied; you split the pot"<<endl;
+						pot /= 2;
+						account.win(pot);
+						amountWon += pot;
+						pot = 0;
+					}
+					else{
+						cout<<"You beat the dealer's hand; you won this round"<<endl;
+						account.win(pot);
+						amountWon += pot;
+						pot = 0;
+					}
 				}
 				else{
 					cout<<"The dealer's hand beat both your hands; you lost this round"<<endl;
@@ -144,11 +159,20 @@ int main(int argc, char** argv) {
 				if(dealer.getTotalValue() > 21){
 					cout<<"Dealer has exceeded 21; you won this round"<<endl;
 					account.win(pot);
+					amountWon += pot;
+					pot = 0;
+				}
+				else if(dealer.getTotalValue() == user.getTotalValue()){
+					cout<<"You tied; you split the pot"<<endl;
+					pot /= 2;
+					account.win(pot);
+					amountWon += pot;
 					pot = 0;
 				}
 				else if(dealer.getTotalValue() < user.getTotalValue()){
 					cout<<"You beat the dealer's hand; you won this round"<<endl;
 					account.win(pot);
+					amountWon += pot;
 					pot = 0;
 				}
 				else{
@@ -160,8 +184,8 @@ int main(int argc, char** argv) {
 		}
 		cout<<"Would you like to play again? (Yes/No): ";
 		cin>>choice;
-	}
-	while(choice == play);
+	}while(choice == play);
+	
 	cout<<"Total amount of betting money: $"<<totalBet<<endl;
 	cout<<"Total amount won: $"<<amountWon<<endl;
 	
