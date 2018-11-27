@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
 	string two = "2";
 	string three = "3";
 	string hitOptions = "Choose number option:\n1. Hit first hand only\n2. Hit second hand only\n3. Hit both hands";
-	string hitChoice;
+	string hitChoice; //different choices on what to hit
 	
 	//create the deck of cards
 	string faces[] = {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
@@ -33,7 +33,8 @@ int main(int argc, char** argv) {
 	double totalBet = 0; //overall amount bet
 	double amountWon = 0; //overall earnings
 	string play = "Yes";
-	string choice;
+	string choice; //whether to play again
+	string option; //chooses what the user wants to do (hit, stand, split)
 	bool isSplit = false;
 	cout<<fixed<<setprecision(2);
 	
@@ -42,18 +43,18 @@ int main(int argc, char** argv) {
 	string accountNumber;
 	cin>>accountNumber;
 	Account account(accountNumber);
-	//This part might need to be inside the do-while loop (unsure)
-	cout<<"Your current balance is $"<<account.getMoney()<<endl;
-	cout<<"Enter the amount of money you would like to bet: ";
-	double money;
-	cin>>money;
-	account.bet(money);
-	pot = money; //amount for the round
 	
 	do{
+		cout<<"Your current balance is $"<<account.getMoney()<<endl;
+		cout<<"Enter the amount of money you would like to bet: ";
+		double money;
+		cin>>money;
+		account.bet(money);
+		pot = money; //amount for the round
+		totalBet += money;
+		
 		Player dealer;
 		Player user;
-		string option; //chooses what the user wants to do (hit, stand, split)
 		
 		//initial dealing 
 		user.hit(deck[0]); //example dealing, not final
@@ -151,7 +152,8 @@ int main(int argc, char** argv) {
 					pot = 0;
 				}
 				else{
-					cout<<"The dealer's hand beat both you hand; you lost this round"<<endl;
+					
+					cout<<"The dealer had a "<<dealer.getTotalValue()<<"; you lost this round"<<endl;
 					pot = 0;
 				}
 			}
