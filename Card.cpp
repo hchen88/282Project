@@ -12,3 +12,7 @@ string Card::getName() const {
 int Card::getValue() const {
 	return value;
 }
+
+void Card::setValue(int value){
+	this->value = value;
+}
