@@ -18,11 +18,13 @@ class Player{
 		void seeHand();
 		void seeSplitHand();
 		void seeDealerHand();
+		bool isDone();
+		bool isDoneSplit();
 	private:
 		vector<Card> hand;
 		vector<Card> splitHand;
-		int totalValue;
-		int splitTotalValue;
+		bool done;
+		bool doneSplit;
 	friend class Card;
 };
 #endif

@@ -69,30 +69,55 @@ int main(int argc, char** argv) {
 		while(option != two){
 			if(option == one){
 				if(isSplit == false){ //doesn't have a second hand
-					user.hit(deck[4]); //example dealing
-					cout<<"You hit: "<<deck[4].getName()<<endl;
-					cout<<"Total value: "<<user.getTotalValue()<<endl;
+					if(user.isDone()){
+						cout<<"You can't hit anymore; you have "<<user.getTotalValue()<<endl;
+					}
+					else{
+						user.hit(deck[4]); //example dealing
+						cout<<"You hit: "<<deck[4].getName()<<endl;
+						cout<<"Total value: "<<user.getTotalValue()<<endl;	
+					}
 				}
 				else{ //does have a second hand
 					cout<<hitOptions<<endl;
 					cin>>hitChoice;
 					if(hitChoice == one){ //hit first hand
-						user.hit(deck[10]);
-						cout<<"You hit: "<<deck[10].getName()<<endl;
-						cout<<"Total value: "<<user.getTotalValue()<<endl;
+						if(user.isDone()){
+							cout<<"You can't hit anymore; you have "<<user.getTotalValue()<<endl;
+						}
+						else{
+							user.hit(deck[10]);
+							cout<<"You hit: "<<deck[10].getName()<<endl;
+							cout<<"Total value: "<<user.getTotalValue()<<endl;	
+						}
 					}
 					else if(hitChoice == two){ //hit second hand
-						user.hitSplit(deck[11]);
-						cout<<"You hit: "<<deck[11].getName()<<endl;
-						cout<<"Total value: "<<user.getSplitTotalValue()<<endl;
+						if(user.isDoneSplit()){
+							cout<<"You can't hit anymore; you have "<<user.getSplitTotalValue()<<endl;
+						}
+						else{
+							user.hitSplit(deck[11]);
+							cout<<"You hit: "<<deck[11].getName()<<endl;
+							cout<<"Total value: "<<user.getSplitTotalValue()<<endl;	
+						}
 					}
 					else if(hitChoice == three){ //hit both hands
-						user.hit(deck[12]);
-						cout<<"You hit for first hand: "<<deck[12].getName()<<endl;
-						cout<<"Total value for first hand: "<<user.getTotalValue()<<endl;
-						user.hitSplit(deck[13]);
-						cout<<"You hit for second hand: "<<deck[13].getName()<<endl;
-						cout<<"Total value for second hand: "<<user.getSplitTotalValue()<<endl;
+						if(user.isDone()){
+							cout<<"You can't hit anymore in your first hand; you have "<<user.getTotalValue()<<endl;
+						}
+						else{
+							user.hit(deck[12]);
+							cout<<"You hit for first hand: "<<deck[12].getName()<<endl;
+							cout<<"Total value for first hand: "<<user.getTotalValue()<<endl;	
+						}
+						if(user.isDoneSplit()){
+							cout<<"You can't hit anymore in your second hand; you have "<<user.getSplitTotalValue()<<endl;
+						}
+						else{
+							user.hitSplit(deck[13]);
+							cout<<"You hit for second hand: "<<deck[13].getName()<<endl;
+							cout<<"Total value for second hand: "<<user.getSplitTotalValue()<<endl;	
+						}
 					}
 				}
 			}
