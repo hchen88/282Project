@@ -121,17 +121,15 @@ int main(int argc, char** argv) {
 					}
 				}
 			}
-			else if(option == three){
+			else if(option == three){ //you want to split when you have duplicate cards
 				isSplit = true;
 				account.bet(pot);
 				totalBet += pot;
 				pot *= 2;
 				cout<<"The pot is now at $"<<pot<<endl;
 				user.hitSplit(deck[5]); //example dealing
-				cout<<"You hit: "<<deck[5].getName()<<endl;
 				user.hitSplit(deck[6]); //according to the instructions, when you split you get two cards to that hand
-				cout<<"You hit: "<<deck[6].getName()<<endl;
-				cout<<"Total value for your new hand: "<<user.getSplitTotalValue()<<endl;
+				user.seeSplitHand();
 			}
 			cout<<menu<<endl;
 			cin>>option;
