@@ -74,8 +74,7 @@ int main(int argc, char** argv) {
 					}
 					else{
 						user.hit(deck[4]); //example dealing
-						cout<<"You hit: "<<deck[4].getName()<<endl;
-						cout<<"Total value: "<<user.getTotalValue()<<endl;	
+						user.seeHand();	
 					}
 				}
 				else{ //does have a second hand
@@ -87,8 +86,7 @@ int main(int argc, char** argv) {
 						}
 						else{
 							user.hit(deck[10]);
-							cout<<"You hit: "<<deck[10].getName()<<endl;
-							cout<<"Total value: "<<user.getTotalValue()<<endl;	
+							user.seeHand();	
 						}
 					}
 					else if(hitChoice == two){ //hit second hand
@@ -97,8 +95,7 @@ int main(int argc, char** argv) {
 						}
 						else{
 							user.hitSplit(deck[11]);
-							cout<<"You hit: "<<deck[11].getName()<<endl;
-							cout<<"Total value: "<<user.getSplitTotalValue()<<endl;	
+							user.seeSplitHand();
 						}
 					}
 					else if(hitChoice == three){ //hit both hands
@@ -107,16 +104,14 @@ int main(int argc, char** argv) {
 						}
 						else{
 							user.hit(deck[12]);
-							cout<<"You hit for first hand: "<<deck[12].getName()<<endl;
-							cout<<"Total value for first hand: "<<user.getTotalValue()<<endl;	
+							user.seeHand();	
 						}
 						if(user.isDoneSplit()){
 							cout<<"You can't hit anymore in your second hand; you have "<<user.getSplitTotalValue()<<endl;
 						}
 						else{
 							user.hitSplit(deck[13]);
-							cout<<"You hit for second hand: "<<deck[13].getName()<<endl;
-							cout<<"Total value for second hand: "<<user.getSplitTotalValue()<<endl;	
+							user.seeSplitHand();
 						}
 					}
 				}

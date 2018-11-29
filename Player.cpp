@@ -66,7 +66,7 @@ void Player::seeHand(){
 }
 
 void Player::seeSplitHand(){
-	cout<<"Your second hand:"<<endl;
+	cout<<"Your hand you split:"<<endl;
 	for(int i = 0; i < splitHand.size(); i++){
 		cout<<splitHand[i].getName()<<endl;
 	}
